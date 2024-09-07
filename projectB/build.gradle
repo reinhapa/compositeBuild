@@ -1,0 +1,25 @@
+plugins {
+  id 'java-library'
+}
+
+version '1.0.0'
+group 'net.reini'
+
+repositories {
+  mavenCentral()
+}
+
+configurations {
+  extraFiles
+}
+
+dependencies {
+//  extraFiles "net.reini:projectA:*"
+  extraFiles "net.reini:projectA:*:extra@zip"
+}
+
+copy { 
+  from configurations.extraFiles.asFileTree.collect { zipTree(it) }
+  into "$buildDir/deployment"
+//  rename replaceVersionPattern, '$1.$3'
+}
